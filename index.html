@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>My Princess ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+    radial-gradient(circle at 50% 20%,#4d1768 0%,#1d082d 45%,#050008 100%);
+    color:#fff;
+}
+
+button{
+    border:0;
+    outline:0;
+    cursor:pointer;
+    color:#fff;
+    font-weight:bold;
+    padding:14px 26px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#c74cff,#6e21ff);
+    box-shadow:0 8px 30px rgba(160,60,255,.35);
+    transition:.25s;
+}
+
+button:active{
+    transform:scale(.94);
+}
+
+.page{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    text-align:center;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(.96);
+    transition:opacity .65s ease,transform .65s ease;
+    overflow:hidden;
+}
+
+.page.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+.content{
+    width:100%;
+    max-width:900px;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 16px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:30px;
+    background:rgba(255,255,255,.05);
+    color:#d9c1e5;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+p{
+    color:#d8cadf;
+    line-height:1.7;
+    margin:15px 0 25px;
+}
+
+/* STARS */
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* LOADING */
+
+#loading{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    background:
+    radial-gradient(circle at center,#42165a,#110019 70%);
+    transition:opacity 1s ease,visibility 1s;
+}
+
+#loading.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loading-heart{
+    font-size:75px;
+    filter:drop-shadow(0 0 20px #ff54a8);
+    animation:heartbeat .8s infinite alternate;
+}
+
+@keyframes heartbeat{
+    from{transform:scale(1)}
+    to{transform:scale(1.15)}
+}
+
+.loading-title{
+    margin-top:20px;
+    font-size:clamp(38px,10vw,55px);
+    font-weight:900;
+}
+
+.loading-sub{
+    margin-top:10px;
+    color:#c7b3d0;
+    font-size:17px;
+}
+
+.loading-bar{
+    width:230px;
+    height:5px;
+    margin-top:25px;
+    border-radius:10px;
+    overflow:hidden;
+    background:rgba(255,255,255,.12);
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#9b36ff,#ff67bd);
+}
+
+.loading-percent{
+    margin-top:10px;
+    color:#c9b5d3;
+    font-size:13px;
+}
+
+/* MUSIC */
+
+.music-button{
+    position:fixed;
+    top:15px;
+    right:15px;
+    z-index:500;
+    width:44px;
+    height:44px;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(10px);
+}
+
+/* WELCOME */
+
+.welcome-small{
+    color:#cdb7d8;
+    font-size:clamp(18px,5vw,27px);
+    letter-spacing:2px;
+    font-weight:bold;
+}
+
+.welcome-title{
+    margin:18px 0;
+    font-size:clamp(58px,15vw,105px);
+    font-weight:900;
+    text-shadow:0 0 35px #b348ff;
+}
+
+.welcome-heart{
+    font-size:70px;
+    animation:heartbeat .8s infinite alternate;
+}
+
+/* I LOVE YOU ANIMATION */
+
+.love-intro{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.start-screen{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+}
+
+.start-screen button{
+    font-size:19px;
+    padding:16px 34px;
+}
+
+.start-note{
+    max-width:330px;
+    color:#e2d5e7;
+    font-size:16px;
+    line-height:1.7;
+}
+
+.start-note b{
+    color:#fff;
+}
+
+.love-animation{
+    position:relative;
+    width:min(95vw,520px);
+    height:min(95vw,520px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    overflow:visible;
+}
+
+.love-animation.running{
+    display:flex;
+}
+
+.love-word{
+    position:absolute;
+    left:50%;
+    top:50%;
+    font-size:clamp(14px,3.8vw,23px);
+    font-weight:900;
+    color:#ff9fd5;
+    text-shadow:
+        0 0 5px #ff4fa8,
+        0 0 15px #ff4fa8,
+        0 0 30px rgba(255,70,170,.8);
+    white-space:nowrap;
+    transform-origin:center;
+    opacity:0;
+}
+
+.love-center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.2);
+    font-size:clamp(42px,12vw,80px);
+    opacity:0;
+    filter:drop-shadow(0 0 20px #ff4fa8);
+}
+
+.love-animation.phase-in .love-center{
+    animation:centerIn 3.5s ease forwards;
+}
+
+.love-animation.phase-out .love-center{
+    animation:centerOut 3.5s ease forwards;
+}
+
+@keyframes centerIn{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.2) rotate(-30deg);
+    }
+    55%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.15) rotate(8deg);
+    }
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1) rotate(0);
+    }
+}
+
+@keyframes centerOut{
+    0%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.2) rotate(30deg);
+    }
+}
+
+.next-love{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    display:none;
+    z-index:20;
+}
+
+.next-love.show{
+    display:block;
+}
+
+/* PASSWORD GAME */
+
+.password-title{
+    font-size:clamp(38px,10vw,65px);
+    font-weight:900;
+    margin:15px 0 25px;
+}
+
+.password-sub{
+    color:#d9c9df;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.password-slots{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:7px;
+    max-width:600px;
+    margin:0 auto 25px;
+}
+
+.password-slot{
+    width:43px;
+    height:50px;
+    border-radius:9px;
+    background:#b81932;
+    border:2px solid #ff526d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:900;
+    transition:.35s;
+    box-shadow:0 5px 15px rgba(255,0,50,.25);
+}
+
+.password-slot.correct{
+    background:#19a84b;
+    border-color:#58ff8b;
+    box-shadow:0 5px 18px rgba(30,255,100,.3);
+    transform:scale(1.06);
+}
+
+.keyboard{
+    width:min(94vw,600px);
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:7px;
+}
+
+.key{
+    min-height:45px;
+    padding:7px 2px;
+    border-radius:8px;
+    background:#159447;
+    border:2px solid #4be67d;
+    color:#fff;
+    font-size:15px;
+    font-weight:900;
+    box-shadow:none;
+}
+
+.key:active{
+    transform:scale(.88);
+}
+
+.key.used{
+    opacity:.25;
+    pointer-events:none;
+}
+
+.password-status{
+    height:25px;
+    margin-top:15px;
+    color:#ff9fbc;
+    font-size:13px;
+}
+
+/* BOOK */
+
+.book-container{
+    perspective:1600px;
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.book{
+    position:relative;
+    width:min(76vw,340px);
+    height:min(105vw,450px);
+    transform-style:preserve-3d;
+}
+
+.book-pages{
+    position:absolute;
+    inset:8px;
+    border-radius:6px 16px 16px 6px;
+    background:repeating-linear-gradient(
+        90deg,#c6ab7c 0,#f0dfbd 2px,#d0b889 4px
+    );
+    box-shadow:12px 15px 35px rgba(0,0,0,.45);
+}
+
+.book-cover{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    border-radius:7px 20px 20px 7px;
+    border:2px solid #9d653b;
+    background:linear-gradient(
+        135deg,#351708,#75401d 45%,#3b1909
+    );
+    box-shadow:15px 20px 50px rgba(0,0,0,.65);
+    transition:1.5s cubic-bezier(.6,-.1,.2,1);
+}
+
+.book.open .book-cover{
+    transform:rotateY(-155deg);
+}
+
+.book-cover-content{
+    position:absolute;
+    inset:25px;
+    border:1px solid rgba(220,170,105,.55);
+    border-radius:5px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.book-small{
+    color:#e7c18a;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.book-title{
+    font-family:Georgia,serif;
+    color:#f0d8a9;
+    font-size:clamp(45px,12vw,70px);
+    line-height:.9;
+    margin:25px 0;
+    text-shadow:3px 4px 5px #281005;
+}
+
+.book-line{
+    width:80px;
+    height:1px;
+    background:#d19b60;
+    margin-bottom:20px;
+}
+
+.book-sub{
+    color:#dfbc87;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-style:italic;
+    margin-bottom:20px;
+}
+
+/* LOVE PARTICLES */
+
+.love-rain{
+    position:fixed;
+    inset:0;
+    z-index:25;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.falling-love{
+    position:absolute;
+    color:#ff72ae;
+    opacity:0;
+    filter:drop-shadow(0 0 6px rgba(255,70,150,.7));
+    animation:loveFloat linear forwards;
+}
+
+@keyframes loveFloat{
+    0%{
+        transform:translateY(110vh) scale(.4);
+        opacity:0;
+    }
+    15%{
+        opacity:.8;
+    }
+    50%{
+        transform:translateY(45vh) scale(1);
+        opacity:.9;
+    }
+    85%{
+        opacity:.7;
+    }
+    100%{
+        transform:translateY(-15vh) scale(.5);
+        opacity:0;
+    }
+}
+
+/* MEMORIES */
+
+.memory-title{
+    font-size:clamp(42px,11vw,78px);
+    font-weight:900;
+    margin:10px 0;
+}
+
+.planet{
+    position:relative;
+    width:min(92vw,460px);
+    height:min(88vw,430px);
+    margin:0 auto;
+    perspective:1000px;
+    touch-action:none;
+}
+
+.memory-orbit{
+    position:absolute;
+    width:0;
+    height:0;
+    left:50%;
+    top:50%;
+    transform-style:preserve-3d;
+}
+
+.memory-card{
+    position:absolute;
+    width:92px;
+    height:120px;
+    left:-46px;
+    top:-60px;
+    border-radius:18px;
+    overflow:hidden;
+    border:2px solid rgba(255,255,255,.65);
+    background:#17051f;
+    box-shadow:0 12px 35px rgba(0,0,0,.65);
+    cursor:pointer;
+    transform-style:preserve-3d;
+}
+
+.memory-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.planet-core{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:115px;
+    height:115px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:
+    radial-gradient(circle at 30% 25%,#ff9ad4,#a333c7 48%,#260039 100%);
+    box-shadow:
+    0 0 35px rgba(207,82,255,.65),
+    inset -20px -20px 30px rgba(0,0,0,.45);
+    z-index:2;
+}
+
+.planet-core::after{
+    content:"❤️";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+}
+
+/* VIEWER */
+
+.photo-viewer{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.9);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+.photo-viewer.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.photo-viewer img{
+    max-width:90vw;
+    max-height:82vh;
+    border-radius:20px;
+    object-fit:contain;
+}
+
+.viewer-close{
+    position:absolute;
+    top:10px;
+    right:20px;
+    font-size:45px;
+}
+
+/* VIDEO */
+
+.video-title{
+    font-size:clamp(40px,10vw,70px);
+    font-weight:900;
+    margin:10px 0;
+}
+
+.video-carousel{
+    width:100%;
+    overflow-x:auto;
+    display:flex;
+    gap:15px;
+    padding:10px 5vw 20px;
+    scroll-snap-type:x mandatory;
+}
+
+.video-item{
+    flex:0 0 82vw;
+    max-width:500px;
+    scroll-snap-align:center;
+    padding:8px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+}
+
+.video-item video{
+    display:block;
+    width:100%;
+    height:min(60vh,430px);
+    border-radius:15px;
+    background:#000;
+    object-fit:contain;
+}
+
+/* LETTER */
+
+.letter{
+    max-height:67vh;
+    overflow-y:auto;
+    padding:25px;
+    border-radius:25px;
+    text-align:left;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(12px);
+}
+
+.letter h1{
+    text-align:center;
+    font-family:Georgia,serif;
+    color:#f0d4ff;
+    font-size:clamp(35px,9vw,55px);
+    margin-bottom:8px;
+}
+
+.letter-sub{
+    text-align:center;
+    color:#bca7c5;
+    font-size:10px;
+    letter-spacing:3px;
+    margin-bottom:25px;
+}
+
+.letter p{
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.9;
+}
+
+.highlight{
+    text-align:center;
+    color:#ecc9ff!important;
+    font-size:18px!important;
+}
+
+.signature{
+    text-align:right;
+    font-style:italic;
+}
+
+@media(max-width:600px){
+    .page{padding:15px}
+    .password-slot{
+        width:39px;
+        height:46px;
+        font-size:17px;
+    }
+    .keyboard{
+        gap:5px;
+    }
+    .key{
+        min-height:42px;
+        font-size:13px;
+    }
+    .planet{
+        height:80vw;
+        max-height:390px;
+    }
+    .memory-card{
+        width:80px;
+        height:105px;
+        left:-40px;
+        top:-52px;
+    }
+    .planet-core{
+        width:100px;
+        height:100px;
+    }
+    .video-item{
+        flex-basis:84vw;
+    }
+    .video-item video{
+        height:52vh;
+    }
+    .letter{
+        max-height:65vh;
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div id="loveRain" class="love-rain"></div>
+
+<audio id="loadingMusic" src="loading.mp3" preload="auto"></audio>
+<audio id="memoryMusic" src="memories.mp3" preload="auto" loop></audio>
+
+<button id="musicButton" class="music-button" onclick="toggleMusic()">🎵</button>
+
+<!-- LOADING -->
+
+<div id="loading">
+    <div class="loading-heart">❤️</div>
+    <div class="loading-title">Loading</div>
+    <div class="loading-sub">Mohon Tunggu Sebentar</div>
+
+    <div class="loading-bar">
+        <div id="loadingProgress" class="loading-progress"></div>
+    </div>
+
+    <div id="loadingPercent" class="loading-percent">0%</div>
+</div>
+
+<!-- PAGE 1 -->
+
+<section id="page1" class="page active">
+    <div class="content">
+
+        <div class="welcome-small">
+            Hii, And Welcome
+        </div>
+
+        <h1 class="welcome-title">
+            Welcome
+        </h1>
+
+        <div class="welcome-heart">
+            👋
+        </div>
+
+        <p>
+            Silahkan Klik Enter untuk membuka
+            Halaman selanjutnya
+        </p>
+
+        <button onclick="goToPage(2)">
+            Enter ✨
+        </button>
+
+    </div>
+</section>
+
+<!-- PAGE 2 : I LOVE YOU -->
+
+<section id="page2" class="page">
+
+    <div class="love-intro">
+
+        <div id="startScreen" class="start-screen">
+
+            <button onclick="startLoveAnimation()">
+                Click Start ✨
+            </button>
+
+            <div class="start-note">
+                <b>Note:</b><br>
+                Lebih baik tombol Speaker/audio-nya
+                dinyalakan sebelum mengklik Start.
+            </div>
+
+        </div>
+
+        <div id="loveAnimation" class="love-animation">
+
+            <div class="love-center">
+                ❤️
+            </div>
+
+            <button
+                id="nextLoveButton"
+                class="next-love"
+                onclick="goToPage(3)"
+            >
+                Selanjutnya →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PAGE 3 : MINIGAMES -->
+
+<section id="page3" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            SECRET GAME
+        </span>
+
+        <h1 class="password-title">
+            Minigames
+        </h1>
+
+        <div class="password-sub">
+            Silahkan ketikan password<br>
+            sesuai kotak warna merah
+        </div>
+
+        <div id="passwordSlots" class="password-slots"></div>
+
+        <div id="keyboard" class="keyboard"></div>
+
+        <div id="passwordStatus" class="password-status"></div>
+
+    </div>
+
+</section>
+
+<!-- PAGE 4 -->
+
+<section id="page4" class="page">
+
+    <div class="content">
+
+        <div class="book-container">
+
+            <div id="book" class="book">
+
+                <div class="book-pages"></div>
+
+                <div class="book-cover">
+
+                    <div class="book-cover-content">
+
+                        <div class="book-small">
+                            A SPECIAL STORY
+                        </div>
+
+                        <div class="book-title">
+                            My<br>
+                            Princess
+                        </div>
+
+                        <div class="book-line"></div>
+
+                        <div class="book-sub">
+                            A little collection
+                            of beautiful moments
+                        </div>
+
+                        <button onclick="openBook()">
+                            Open Surprise 🎁
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PAGE 5 -->
+
+<section id="page5" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            MEMORIES
+        </span>
+
+        <h1 class="memory-title">
+            Memories ✨
+        </h1>
+
+        <p>
+            Geser kiri dan kanan
+            untuk melihat kenangan.
+        </p>
+
+        <div id="planet" class="planet">
+            <div id="memoryOrbit" class="memory-orbit"></div>
+            <div class="planet-core"></div>
+        </div>
+
+        <div style="color:#aa9bae;font-size:11px;margin:4px 0 15px">
+            ← GESER KIRI / KANAN →
+        </div>
+
+        <button onclick="goToPage(6)">
+            Continue 🎬
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 6 -->
+
+<section id="page6" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            VIDEO MEMORIES
+        </span>
+
+        <h1 class="video-title">
+            Our Memories 🎬
+        </h1>
+
+        <p>
+            Geser ke kiri atau kanan
+            untuk melihat video.
+        </p>
+
+        <div id="videoCarousel" class="video-carousel">
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video3.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video4.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+
+        <div style="color:#a999b0;font-size:11px;margin-bottom:15px">
+            ← SWIPE → • Hanya satu video yang diputar
+        </div>
+
+        <button onclick="goToPage(7)">
+            Continue ❤️
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 7 -->
+
+<section id="page7" class="page">
+
+    <div class="content">
+
+        <div class="letter">
+
+            <h1>
+                For My Princess ❤️
+            </h1>
+
+            <div class="letter-sub">
+                A LITTLE MESSAGE FROM THE HEART
+            </div>
+
+            <p>
+                Kalau suatu hari nanti kamu bertanya,
+                kenapa aku membuat semua ini untukmu...
+            </p>
+
+            <p class="highlight">
+                Jawabannya sederhana.
+            </p>
+
+            <p>
+                Karena kamu adalah seseorang yang begitu
+                berarti buat aku. Aku ingin menyimpan
+                sedikit cerita tentang kita, tentang tawa,
+                tentang momen-momen kecil, dan tentang
+                perasaan yang mungkin sulit dijelaskan
+                dengan kata-kata.
+            </p>
+
+            <p>
+                Aku mungkin nggak selalu pandai menunjukkan
+                apa yang aku rasakan. Tapi percayalah,
+                setiap perhatian kecil yang aku berikan,
+                setiap waktu yang aku luangkan, dan setiap
+                hal yang aku buat untukmu, semuanya datang
+                dari hati.
+            </p>
+
+            <p>
+                Aku nggak menjanjikan bahwa setiap hari
+                akan selalu sempurna. Tapi kalau aku boleh
+                memilih, aku ingin tetap punya banyak hari
+                untuk melihat senyummu, mendengar ceritamu,
+                dan membuat lebih banyak kenangan bersamamu.
+            </p>
+
+            <p class="highlight">
+                Kamu bukan cuma bagian dari cerita ini.
+                <br>
+                Kamu adalah alasan kenapa cerita ini dibuat. ❤️
+            </p>
+
+            <p>
+                Jadi kalau nanti kamu melihat halaman ini
+                lagi, semoga kamu ingat satu hal:
+            </p>
+
+            <p class="highlight">
+                Ada seseorang yang pernah membuat semua ini
+                hanya karena ingin melihatmu tersenyum.
+            </p>
+
+            <p>
+                Terima kasih sudah hadir.
+                <br>
+                Terima kasih sudah menjadi kamu.
+            </p>
+
+            <p class="highlight">
+                I love you, my princess. ❤️
+            </p>
+
+            <p class="signature">
+                — Made with love,
+                especially for you. ✨
+            </p>
+
+        </div>
+
+        <br>
+
+        <button onclick="restartWebsite()">
+            ↻ Start Again
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PHOTO VIEWER -->
+
+<div id="photoViewer" class="photo-viewer">
+
+    <div class="viewer-close" onclick="closePhoto()">
+        ×
+    </div>
+
+    <img id="viewerImage" src="" alt="Memory">
+
+</div>
+
+<script>
+
+/* =========================
+   STARS
+========================= */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let stars=[];
+
+function resizeCanvas(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
+for(let i=0;i<150;i++){
+    stars.push({
+        x:Math.random(),
+        y:Math.random(),
+        size:Math.random()*1.5+.3,
+        alpha:Math.random()
+    });
+}
+
+function drawStars(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    stars.forEach(star=>{
+
+        star.alpha+=.008;
+
+        const opacity=
+            .25+
+            Math.abs(Math.sin(star.alpha))*.7;
+
+        ctx.globalAlpha=opacity;
+        ctx.fillStyle="#fff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x*canvas.width,
+            star.y*canvas.height,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+/* =========================
+   AUDIO
+========================= */
+
+const loadingMusic=document.getElementById("loadingMusic");
+const memoryMusic=document.getElementById("memoryMusic");
+const musicButton=document.getElementById("musicButton");
+
+let musicEnabled=true;
+
+function safePlay(audio){
+
+    if(!musicEnabled)return;
+
+    audio.play().catch(()=>{});
+}
+
+function toggleMusic(){
+
+    musicEnabled=!musicEnabled;
+
+    if(!musicEnabled){
+
+        loadingMusic.pause();
+        memoryMusic.pause();
+        musicButton.textContent="🔇";
+        return;
+
+    }
+
+    musicButton.textContent="🎵";
+
+    if(currentPage>=5){
+        safePlay(memoryMusic);
+    }else{
+        safePlay(loadingMusic);
+    }
+}
+
+/* =========================
+   LOADING
+========================= */
+
+let loadingStart=Date.now();
+const loadingDuration=5000;
+
+loadingMusic.volume=.45;
+safePlay(loadingMusic);
+
+function updateLoading(){
+
+    const elapsed=Date.now()-loadingStart;
+
+    const percent=Math.min(
+        elapsed/loadingDuration*100,
+        100
+    );
+
+    document.getElementById(
+        "loadingProgress"
+    ).style.width=percent+"%";
+
+    document.getElementById(
+        "loadingPercent"
+    ).textContent=Math.floor(percent)+"%";
+
+    if(elapsed<loadingDuration){
+
+        requestAnimationFrame(updateLoading);
+
+    }else{
+
+        document
+            .getElementById("loading")
+            .classList.add("hide");
+
+        loadingMusic.pause();
+
+        musicButton.textContent="🔇";
+    }
+}
+
+updateLoading();
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+let currentPage=1;
+
+function goToPage(number){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    const next=document.getElementById("page"+number);
+
+    if(!next)return;
+
+    next.classList.add("active");
+
+    currentPage=number;
+
+    if(number===3){
+        initPasswordGame();
+    }
+
+    if(number===4){
+        startLoveParticles();
+    }
+
+    if(number===5){
+
+        buildMemories();
+
+        loadingMusic.pause();
+
+        memoryMusic.volume=.5;
+
+        safePlay(memoryMusic);
+
+        startLoveParticles();
+    }
+
+    if(number===6 || number===7){
+
+        if(memoryMusic.paused){
+            safePlay(memoryMusic);
+        }
+
+        startLoveParticles();
+    }
+}
+
+/* =========================
+   I LOVE YOU ANIMATION
+========================= */
+
+let loveStarted=false;
+let loveFirstFinished=false;
+let loveCycleTimer=null;
+
+function createLoveWords(){
+
+    const animation=
+        document.getElementById("loveAnimation");
+
+    animation
+        .querySelectorAll(".love-word")
+        .forEach(el=>el.remove());
+
+    const words=[
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU",
+        "I LOVE YOU"
+    ];
+
+    words.forEach((text,index)=>{
+
+        const word=document.createElement("div");
+
+        word.className="love-word";
+        word.textContent=text;
+
+        const angle=
+            (index/words.length)*Math.PI*2;
+
+        const radius=
+            60+
+            (index%5)*35;
+
+        const x=
+            Math.cos(angle)*radius;
+
+        const y=
+            Math.sin(angle)*radius;
+
+        word.style.setProperty(
+            "--x",
+            x+"px"
+        );
+
+        word.style.setProperty(
+            "--y",
+            y+"px"
+        );
+
+        word.style.left="50%";
+        word.style.top="50%";
+
+        word.style.transform=
+            `translate(-50%,-50%)
+             translate(${x}px,${y}px)
+             rotate(${angle}rad)
+             scale(.4)`;
+
+        animation.appendChild(word);
+    });
+}
+
+function animateWordsIn(){
+
+    const words=
+        document.querySelectorAll(".love-word");
+
+    words.forEach((word,index)=>{
+
+        const delay=index*.07;
+
+        word.animate(
+            [
+                {
+                    opacity:0,
+                    transform:
+                    word.style.transform+
+                    " scale(.2)"
+                },
+                {
+                    opacity:.9,
+                    transform:
+                    word.style.transform+
+                    " scale(1)"
+                }
+            ],
+            {
+                duration:1300,
+                delay:delay,
+                fill:"forwards",
+                easing:"cubic-bezier(.2,.8,.2,1)"
+            }
+        );
+
+    });
+}
+
+function animateWordsOut(){
+
+    const words=
+        document.querySelectorAll(".love-word");
+
+    words.forEach((word,index)=>{
+
+        word.animate(
+            [
+                {
+                    opacity:.9,
+                    transform:
+                    word.style.transform+
+                    " scale(1)"
+                },
+                {
+                    opacity:0,
+                    transform:
+                    word.style.transform+
+                    " scale(.2)"
+                }
+            ],
+            {
+                duration:1300,
+                delay:index*.05,
+                fill:"forwards",
+                easing:"ease-in"
+            }
+        );
+
+    });
+}
+
+function runLoveCycle(){
+
+    if(!loveStarted)return;
+
+    const animation=
+        document.getElementById("loveAnimation");
+
+    createLoveWords();
+
+    animation.classList.remove("phase-out");
+    animation.classList.add("phase-in");
+
+    animateWordsIn();
+
+    document
+        .querySelector(".love-center")
+        .animate(
+            [
+                {
+                    opacity:0,
+                    transform:
+                    "translate(-50%,-50%) scale(.2)"
+                },
+                {
+                    opacity:1,
+                    transform:
+                    "translate(-50%,-50%) scale(1.1)"
+                },
+                {
+                    opacity:1,
+                    transform:
+                    "translate(-50%,-50%) scale(1)"
+                }
+            ],
+            {
+                duration:3000,
+                fill:"forwards",
+                easing:"ease-out"
+            }
+        );
+
+    if(!loveFirstFinished){
+
+        loveFirstFinished=true;
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("nextLoveButton")
+                .classList.add("show");
+
+        },3500);
+    }
+
+    loveCycleTimer=setTimeout(()=>{
+
+        animateWordsOut();
+
+        animation.classList.remove("phase-in");
+        animation.classList.add("phase-out");
+
+        setTimeout(()=>{
+
+            if(loveStarted){
+                runLoveCycle();
+            }
+
+        },3000);
+
+    },5000);
+}
+
+function startLoveAnimation(){
+
+    if(loveStarted)return;
+
+    loveStarted=true;
+
+    document
+        .getElementById("startScreen")
+        .style.display="none";
+
+    document
+        .getElementById("loveAnimation")
+        .classList.add("running");
+
+    /*
+       Musik mulai setelah tombol Start
+    */
+
+    loadingMusic.pause();
+
+    memoryMusic.currentTime=0;
+    memoryMusic.volume=.5;
+
+    safePlay(memoryMusic);
+
+    runLoveCycle();
+}
+
+/* =========================
+   PASSWORD GAME
+========================= */
+
+const passwords=[
+    "BANGTAN",
+    "INTANACU",
+    "PAN DAN TAN"
+];
+
+let passwordIndex=0;
+let passwordTarget="";
+let passwordPosition=0;
+let passwordRunning=false;
+
+const alphabet=[
+    "A","B","C","D","E","F","G","H","I","J",
+    "K","L","M","N","O","P","Q","R","S","T",
+    "U","V","W","X","Y","Z"
+];
+
+function initPasswordGame(){
+
+    passwordIndex=0;
+
+    passwordTarget=
+        passwords[passwordIndex];
+
+    passwordPosition=0;
+
+    passwordRunning=true;
+
+    renderPassword();
+    renderKeyboard();
+}
+
+function renderPassword(){
+
+    const slots=
+        document.getElementById(
+            "passwordSlots"
+        );
+
+    slots.innerHTML="";
+
+    for(let i=0;i<passwordTarget.length;i++){
+
+        const slot=
+            document.createElement("div");
+
+        slot.className="password-slot";
+
+        slot.textContent=
+            passwordTarget[i]===" "
+            ?" "
+            :passwordTarget[i];
+
+        if(i<passwordPosition){
+            slot.classList.add("correct");
+        }
+
+        slots.appendChild(slot);
+    }
+}
+
+function randomKeyboard(){
+
+    let keys=[];
+
+    alphabet.forEach(letter=>{
+        keys.push(letter);
+        keys.push(letter);
+    });
+
+    /*
+       Acak Fisher-Yates
+    */
+
+    for(let i=keys.length-1;i>0;i--){
+
+        const j=
+            Math.floor(Math.random()*(i+1));
+
+        [keys[i],keys[j]]=
+        [keys[j],keys[i]];
+    }
+
+    return keys;
+}
+
+function renderKeyboard(){
+
+    const keyboard=
+        document.getElementById(
+            "keyboard"
+        );
+
+    keyboard.innerHTML="";
+
+    const keys=randomKeyboard();
+
+    keys.forEach(letter=>{
+
+        const key=
+            document.createElement("button");
+
+        key.className="key";
+        key.textContent=letter;
+
+        key.onclick=()=>{
+            pressPasswordLetter(letter,key);
+        };
+
+        keyboard.appendChild(key);
+    });
+}
+
+function pressPasswordLetter(letter,key){
+
+    if(!passwordRunning)return;
+
+    const targetLetter=
+        passwordTarget[passwordPosition];
+
+    /*
+       Spasi otomatis dilewati.
+    */
+
+    while(
+        passwordPosition<
+        passwordTarget.length &&
+        passwordTarget[passwordPosition]===" "
+    ){
+        passwordPosition++;
+    }
+
+    const current=
+        passwordTarget[passwordPosition];
+
+    if(letter===current){
+
+        key.classList.add("used");
+
+        passwordPosition++;
+
+        renderPassword();
+
+        /*
+           Password langsung selesai
+        */
+
+        if(passwordPosition>=passwordTarget.length){
+
+            passwordRunning=false;
+
+            document
+                .getElementById("passwordStatus")
+                .textContent=
+                "Password benar ❤️";
+
+            setTimeout(()=>{
+
+                /*
+                   Sesuai aturan:
+                   satu password benar langsung
+                   buka halaman selanjutnya.
+                */
+
+                goToPage(4);
+
+            },700);
+
+            return;
+        }
+
+    }else{
+
+        /*
+           Salah:
+           keyboard diacak ulang.
+        */
+
+        document
+            .getElementById("passwordStatus")
+            .textContent=
+            "Huruf salah, coba lagi...";
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("passwordStatus")
+                .textContent="";
+
+            renderKeyboard();
+
+        },250);
+    }
+}
+
+/* =========================
+   BOOK
+========================= */
+
+function openBook(){
+
+    const book=
+        document.getElementById("book");
+
+    book.classList.add("open");
+
+    setTimeout(()=>{
+
+        goToPage(5);
+
+    },1500);
+}
+
+/* =========================
+   MEMORIES
+========================= */
+
+const photoFiles=[
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg",
+    "foto5.jpg",
+    "foto6.jpg",
+    "foto7.jpg",
+    "foto8.jpg",
+    "foto9.jpg",
+    "foto10.jpg"
+];
+
+let memoriesCreated=false;
+let planetAngle=0;
+
+function buildMemories(){
+
+    if(memoriesCreated)return;
+
+    memoriesCreated=true;
+
+    const orbit=
+        document.getElementById("memoryOrbit");
+
+    let list=[];
+
+    for(let round=0;round<3;round++){
+
+        photoFiles.forEach(photo=>{
+            list.push(photo);
+        });
+    }
+
+    list.sort(()=>Math.random()-.5);
+
+    list.forEach((file,index)=>{
+
+        const card=
+            document.createElement("div");
+
+        card.className="memory-card";
+
+        const image=
+            document.createElement("img");
+
+        image.src=file;
+        image.alt="Memory "+(index+1);
+        image.loading="lazy";
+
+        card.appendChild(image);
+
+        card.addEventListener(
+            "click",
+            ()=>{
+                openPhoto(file);
+            }
+        );
+
+        orbit.appendChild(card);
+
+    });
+
+    updatePlanet();
+}
+
+function updatePlanet(){
+
+    const cards=
+        document.querySelectorAll(
+            ".memory-card"
+        );
+
+    const radius=
+        Math.min(
+            window.innerWidth*.37,
+            170
+        );
+
+    const total=cards.length;
+
+    cards.forEach((card,index)=>{
+
+        const phi=
+            Math.acos(
+                1-
+                2*(index+.5)/total
+            );
+
+        const theta=
+            Math.PI*
+            (1+Math.sqrt(5))*
+            index+
+            planetAngle;
+
+        const x=
+            radius*
+            Math.sin(phi)*
+            Math.cos(theta);
+
+        const y=
+            radius*
+            Math.cos(phi);
+
+        const z=
+            radius*
+            Math.sin(phi)*
+            Math.sin(theta);
+
+        const scale=
+            .62+
+            ((z+radius)/(2*radius))*.48;
+
+        const opacity=
+            .25+
+            ((z+radius)/(2*radius))*.75;
+
+        card.style.transform=
+            `translate3d(${x}px,${y}px,${z}px)
+             scale(${scale})`;
+
+        card.style.opacity=opacity;
+
+        card.style.zIndex=
+            Math.round(z+radius);
+    });
+}
+
+/* =========================
+   PLANET TOUCH
+========================= */
+
+const planet=
+    document.getElementById("planet");
+
+let dragging=false;
+let lastX=0;
+
+planet.addEventListener(
+    "pointerdown",
+    event=>{
+
+        dragging=true;
+        lastX=event.clientX;
+
+        planet.setPointerCapture(
+            event.pointerId
+        );
+    }
+);
+
+planet.addEventListener(
+    "pointermove",
+    event=>{
+
+        if(!dragging)return;
+
+        const delta=
+            event.clientX-lastX;
+
+        planetAngle+=delta*.009;
+
+        lastX=event.clientX;
+
+        updatePlanet();
+    }
+);
+
+planet.addEventListener(
+    "pointerup",
+    ()=>{
+        dragging=false;
+    }
+);
+
+planet.addEventListener(
+    "pointercancel",
+    ()=>{
+        dragging=false;
+    }
+);
+
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+function openPhoto(src){
+
+    document
+        .getElementById("viewerImage")
+        .src=src;
+
+    document
+        .getElementById("photoViewer")
+        .classList.add("show");
+}
+
+function closePhoto(){
+
+    document
+        .getElementById("photoViewer")
+        .classList.remove("show");
+}
+
+document
+    .getElementById("photoViewer")
+    .addEventListener(
+        "click",
+        event=>{
+
+            if(
+                event.target.id==="photoViewer"
+            ){
+                closePhoto();
+            }
+        }
+    );
+
+/* =========================
+   LOVE PARTICLES
+========================= */
+
+let particleTimer=null;
+
+function startLoveParticles(){
+
+    const container=
+        document.getElementById("loveRain");
+
+    if(particleTimer)return;
+
+    function createParticle(){
+
+        if(
+            currentPage<4
+        )return;
+
+        const love=
+            document.createElement("div");
+
+        love.className="falling-love";
+
+        love.textContent=
+            Math.random()>.5
+            ?"♥"
+            :"♡";
+
+        love.style.left=
+            Math.random()*100+"%";
+
+        love.style.fontSize=
+            10+Math.random()*15+"px";
+
+        love.style.animationDuration=
+            5+Math.random()*4+"s";
+
+        container.appendChild(love);
+
+        setTimeout(()=>{
+            love.remove();
+        },10000);
+    }
+
+    particleTimer=
+        setInterval(createParticle,350);
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+const videos=
+    document.querySelectorAll(
+        "#videoCarousel video"
+    );
+
+videos.forEach(video=>{
+
+    video.addEventListener(
+        "play",
+        ()=>{
+
+            /*
+               Musik Memories berhenti saat
+               video diputar.
+            */
+
+            memoryMusic.pause();
+
+            videos.forEach(other=>{
+
+                if(other!==video){
+                    other.pause();
+                }
+
+            });
+        }
+    );
+
+    video.addEventListener(
+        "pause",
+        ()=>{
+
+            /*
+               Saat video berhenti,
+               Memories lanjut dari posisi
+               terakhir. Tidak diulang.
+            */
+
+            if(currentPage>=6){
+
+                safePlay(memoryMusic);
+
+            }
+        }
+    );
+
+    video.addEventListener(
+        "ended",
+        ()=>{
+
+            if(currentPage>=6){
+                safePlay(memoryMusic);
+            }
+        }
+    );
+});
+
+/* =========================
+   RESTART
+========================= */
+
+function restartWebsite(){
+
+    videos.forEach(video=>{
+        video.pause();
+        video.currentTime=0;
+    });
+
+    loadingMusic.pause();
+    memoryMusic.pause();
+
+    loadingMusic.currentTime=0;
+    memoryMusic.currentTime=0;
+
+    document
+        .getElementById("book")
+        .classList.remove("open");
+
+    document
+        .getElementById("nextLoveButton")
+        .classList.remove("show");
+
+    loveStarted=false;
+    loveFirstFinished=false;
+
+    if(loveCycleTimer){
+        clearTimeout(loveCycleTimer);
+        loveCycleTimer=null;
+    }
+
+    document
+        .getElementById("loveAnimation")
+        .classList.remove(
+            "running",
+            "phase-in",
+            "phase-out"
+        );
+
+    document
+        .getElementById("startScreen")
+        .style.display="flex";
+
+    document
+        .getElementById("loveAnimation")
+        .querySelectorAll(".love-word")
+        .forEach(el=>el.remove());
+
+    passwordRunning=false;
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    document
+        .getElementById("page1")
+        .classList.add("active");
+
+    currentPage=1;
+
+    document
+        .getElementById("loadingProgress")
+        .style.width="0%";
+
+    document
+        .getElementById("loadingPercent")
+        .textContent="0%";
+
+    document
+        .getElementById("loading")
+        .classList.remove("hide");
+
+    loadingStart=Date.now();
+
+    loadingMusic.currentTime=0;
+
+    safePlay(loadingMusic);
+
+    musicButton.textContent="🎵";
+
+    requestAnimationFrame(updateLoading);
+}
+
+</script>
+
+</body>
+          </html>
