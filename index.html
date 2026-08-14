@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Princess ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 50% 20%,#4d1768 0%,#1d082d 45%,#050008 100%);
+    color:#fff;
+}
+
+button{
+    border:0;
+    outline:0;
+    cursor:pointer;
+    color:#fff;
+    font-weight:bold;
+    padding:14px 26px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#c74cff,#6e21ff);
+    box-shadow:0 8px 30px rgba(160,60,255,.35);
+    transition:.25s;
+}
+
+button:active{
+    transform:scale(.94);
+}
+
+button:disabled{
+    opacity:.35;
+    pointer-events:none;
+}
+
+/* BACKGROUND */
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* PAGES */
+
+.page{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    text-align:center;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(.96);
+    transition:opacity .65s ease,transform .65s ease;
+    overflow:hidden;
+}
+
+.page.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+.content{
+    width:100%;
+    max-width:900px;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 16px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:30px;
+    background:rgba(255,255,255,.05);
+    color:#d9c1e5;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+p{
+    color:#d8cadf;
+    line-height:1.7;
+    margin:15px 0 25px;
+}
+
+/* LOADING */
+
+#loading{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    background:
+        radial-gradient(circle at center,#42165a,#110019 70%);
+    transition:opacity 1s ease,visibility 1s;
+}
+
+#loading.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loading-heart{
+    font-size:75px;
+    filter:drop-shadow(0 0 20px #ff54a8);
+    animation:heartbeat .8s infinite alternate;
+}
+
+@keyframes heartbeat{
+    from{transform:scale(1);}
+    to{transform:scale(1.15);}
+}
+
+.loading-title{
+    margin-top:20px;
+    font-size:clamp(32px,9vw,50px);
+    font-weight:900;
+}
+
+.loading-sub{
+    margin-top:10px;
+    color:#c7b3d0;
+    font-size:13px;
+}
+
+.loading-bar{
+    width:230px;
+    height:5px;
+    margin-top:25px;
+    border-radius:10px;
+    overflow:hidden;
+    background:rgba(255,255,255,.12);
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#9b36ff,#ff67bd);
+}
+
+.loading-percent{
+    margin-top:10px;
+    color:#c9b5d3;
+    font-size:13px;
+}
+
+/* WELCOME */
+
+.welcome-small{
+    color:#cdb7d8;
+    font-size:11px;
+    letter-spacing:4px;
+}
+
+.welcome-title{
+    margin:18px 0;
+    font-size:clamp(58px,15vw,105px);
+    font-weight:900;
+    text-shadow:0 0 35px #b348ff;
+}
+
+.welcome-heart{
+    font-size:70px;
+    animation:heartbeat .8s infinite alternate;
+}
+
+/* QUESTION */
+
+.question-title{
+    font-size:clamp(42px,11vw,75px);
+    font-weight:900;
+    margin:20px 0;
+}
+
+.question-heart{
+    font-size:70px;
+    margin-bottom:15px;
+    animation:heartbeat .8s infinite alternate;
+}
+
+.question-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+/* GAME */
+
+.game-title{
+    font-size:clamp(42px,11vw,80px);
+    font-weight:900;
+    margin:15px 0;
+}
+
+.game-main-heart{
+    font-size:65px;
+    animation:heartbeat .8s infinite alternate;
+}
+
+.game-score{
+    margin:15px 0;
+    font-size:19px;
+}
+
+.game-score span{
+    color:#e38aff;
+    font-weight:bold;
+}
+
+.game-area{
+    position:relative;
+    width:min(90vw,450px);
+    height:230px;
+    margin:0 auto 20px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.05);
+    overflow:hidden;
+}
+
+.target-heart{
+    position:absolute;
+    font-size:44px;
+    cursor:pointer;
+    user-select:none;
+    filter:drop-shadow(0 0 12px #ff4d9b);
+    animation:heartbeat .65s infinite alternate;
+}
+
+/* BOOK */
+
+.book-container{
+    perspective:1600px;
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.book{
+    position:relative;
+    width:min(76vw,340px);
+    height:min(105vw,450px);
+    transform-style:preserve-3d;
+}
+
+.book-pages{
+    position:absolute;
+    inset:8px;
+    border-radius:6px 16px 16px 6px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #c6ab7c 0,
+            #f0dfbd 2px,
+            #d0b889 4px
+        );
+    box-shadow:12px 15px 35px rgba(0,0,0,.45);
+}
+
+.book-cover{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    border-radius:7px 20px 20px 7px;
+    border:2px solid #9d653b;
+    background:
+        linear-gradient(
+            135deg,
+            #351708,
+            #75401d 45%,
+            #3b1909
+        );
+    box-shadow:15px 20px 50px rgba(0,0,0,.65);
+    transition:1.5s cubic-bezier(.6,-.1,.2,1);
+}
+
+.book.open .book-cover{
+    transform:rotateY(-155deg);
+}
+
+.book.closing .book-cover{
+    transform:rotateY(0deg);
+}
+
+.book-cover-content{
+    position:absolute;
+    inset:25px;
+    border:1px solid rgba(220,170,105,.55);
+    border-radius:5px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.book-small{
+    color:#e7c18a;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.book-title{
+    font-family:Georgia,serif;
+    color:#f0d8a9;
+    font-size:clamp(45px,12vw,70px);
+    line-height:.9;
+    margin:25px 0;
+    text-shadow:3px 4px 5px #281005;
+}
+
+.book-line{
+    width:80px;
+    height:1px;
+    background:#d19b60;
+    margin-bottom:20px;
+}
+
+.book-sub{
+    color:#dfbc87;
+    font-family:Georgia,serif;
+    font-size:13px;
+    font-style:italic;
+    margin-bottom:20px;
+}
+
+/* LOVE RAIN */
+
+.love-rain{
+    position:fixed;
+    inset:0;
+    z-index:25;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.falling-love{
+    position:absolute;
+    top:-50px;
+    color:#ff72ae;
+    opacity:.75;
+    filter:drop-shadow(0 0 5px rgba(255,70,150,.4));
+    animation:loveFall linear forwards;
+}
+
+@keyframes loveFall{
+    0%{
+        transform:translateY(-50px) rotate(0deg);
+        opacity:0;
+    }
+    10%{opacity:.8;}
+    90%{opacity:.8;}
+    100%{
+        transform:translateY(115vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* MEMORIES */
+
+.memory-title{
+    font-size:clamp(42px,11vw,78px);
+    font-weight:900;
+    margin:10px 0;
+}
+
+/* SLIDESHOW */
+
+.memory-slideshow{
+    position:relative;
+    width:min(88vw,420px);
+    height:min(105vw,480px);
+    margin:10px auto 18px;
+    border-radius:24px;
+    overflow:hidden;
+    background:#000;
+    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 15px 50px rgba(0,0,0,.6);
+}
+
+.memory-slide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:translate(0,0) scale(1.04);
+    transition:
+        opacity .55s ease,
+        transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.memory-slide.show{
+    opacity:1;
+    transform:translate(0,0) scale(1);
+}
+
+.memory-dark{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    background:#000;
+    opacity:0;
+    pointer-events:none;
+}
+
+.memory-dark.active{
+    animation:darkTransition .7s ease forwards;
+}
+
+@keyframes darkTransition{
+    0%{opacity:0;}
+    45%{opacity:1;}
+    100%{opacity:0;}
+}
+
+.memory-number{
+    position:absolute;
+    top:12px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    padding:7px 13px;
+    border-radius:30px;
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(8px);
+    font-size:11px;
+}
+
+.next-memory{
+    margin-top:4px;
+    animation:buttonPulse 1.4s infinite alternate;
+}
+
+@keyframes buttonPulse{
+    from{box-shadow:0 8px 25px rgba(160,60,255,.3);}
+    to{box-shadow:0 8px 35px rgba(255,80,190,.65);}
+}
+
+/* VIDEO */
+
+.video-title{
+    font-size:clamp(40px,10vw,70px);
+    font-weight:900;
+    margin:10px 0;
+}
+
+.video-carousel{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    display:flex;
+    gap:15px;
+    padding:10px 5vw 20px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+}
+
+.video-carousel::-webkit-scrollbar{
+    height:4px;
+}
+
+.video-item{
+    flex:0 0 82vw;
+    max-width:500px;
+    scroll-snap-align:center;
+    padding:8px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+}
+
+.video-item video{
+    display:block;
+    width:100%;
+    height:min(60vh,430px);
+    border-radius:15px;
+    background:#000;
+    object-fit:contain;
+}
+
+.video-hint{
+    color:#a999b0;
+    font-size:11px;
+    margin-bottom:15px;
+}
+
+/* LETTER */
+
+.letter{
+    max-height:67vh;
+    overflow-y:auto;
+    padding:25px;
+    border-radius:25px;
+    text-align:left;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(12px);
+}
+
+.letter::-webkit-scrollbar{
+    width:3px;
+}
+
+.letter h1{
+    text-align:center;
+    font-family:Georgia,serif;
+    color:#f0d4ff;
+    font-size:clamp(35px,9vw,55px);
+    margin-bottom:8px;
+}
+
+.letter-sub{
+    text-align:center;
+    color:#bca7c5;
+    font-size:10px;
+    letter-spacing:3px;
+    margin-bottom:25px;
+}
+
+.letter p{
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.9;
+}
+
+.letter .highlight{
+    text-align:center;
+    color:#ecc9ff;
+    font-size:18px;
+}
+
+.signature{
+    text-align:right;
+    font-style:italic;
+}
+
+/* BACK BUTTON */
+
+.back-button{
+    margin-top:12px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:none;
+}
+
+/* 444 */
+
+#error444{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    background:#080808;
+}
+
+#error444.show{
+    display:flex;
+}
+
+.error-code{
+    font-size:clamp(80px,22vw,160px);
+    font-weight:900;
+    letter-spacing:-8px;
+}
+
+.error-text{
+    color:#aaa;
+    margin:15px 0 25px;
+    font-size:14px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+    .page{
+        padding:15px;
+    }
+
+    .game-area{
+        height:210px;
+    }
+
+    .video-item{
+        flex-basis:84vw;
+    }
+
+    .video-item video{
+        height:52vh;
+    }
+
+    .letter{
+        max-height:65vh;
+        padding:20px;
+    }
+
+    .memory-slideshow{
+        height:min(108vw,460px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div id="loveRain" class="love-rain"></div>
+
+<!-- AUDIO -->
+<audio id="loadingMusic" src="loading.mp3" preload="auto"></audio>
+<audio id="memoryMusic" src="memories.mp3" preload="auto" loop></audio>
+
+<!-- LOADING -->
+<div id="loading">
+
+    <div class="loading-heart">❤️</div>
+
+    <div class="loading-title">
+        Something Special
+    </div>
+
+    <div class="loading-sub">
+        Preparing your little surprise...
+    </div>
+
+    <div class="loading-bar">
+        <div id="loadingProgress" class="loading-progress"></div>
+    </div>
+
+    <div id="loadingPercent" class="loading-percent">
+        0%
+    </div>
+
+</div>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+
+    <div class="content">
+
+        <div class="welcome-small">
+            A LITTLE SURPRISE
+        </div>
+
+        <h1 class="welcome-title">
+            Welcome
+        </h1>
+
+        <div class="welcome-heart">
+            💖
+        </div>
+
+        <p>
+            Ada sesuatu yang spesial
+            menunggumu di sini.
+        </p>
+
+        <button onclick="goToPage(2)">
+            Enter ✨
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            ONE LITTLE QUESTION
+        </span>
+
+        <div class="question-heart">
+            💗
+        </div>
+
+        <h1 class="question-title">
+            Do you love me?
+        </h1>
+
+        <div class="question-buttons">
+
+            <button onclick="answerYes()">
+                YES ❤️
+            </button>
+
+            <button onclick="answerNo()">
+                NO
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            MINI GAME
+        </span>
+
+        <h1 class="game-title">
+            Catch The Love
+        </h1>
+
+        <div class="game-main-heart">
+            ❤️
+        </div>
+
+        <p>
+            Klik love sebanyak 3×
+            untuk membuktikan cintamu.
+        </p>
+
+        <div class="game-score">
+            Love:
+            <span id="gameScore">0</span>
+            / 3
+        </div>
+
+        <div id="gameArea" class="game-area"></div>
+
+        <button id="continueButton" disabled onclick="goToPage(4)">
+            Continue →
+        </button>
+
+        <br>
+
+        <button class="back-button" onclick="goBack()">
+            ← Kembali
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="page">
+
+    <div class="content">
+
+        <div class="book-container">
+
+            <div id="book" class="book">
+
+                <div class="book-pages"></div>
+
+                <div class="book-cover">
+
+                    <div class="book-cover-content">
+
+                        <div class="book-small">
+                            A SPECIAL STORY
+                        </div>
+
+                        <div class="book-title">
+                            My<br>
+                            Princess
+                        </div>
+
+                        <div class="book-line"></div>
+
+                        <div class="book-sub">
+                            A little collection
+                            of beautiful moments
+                        </div>
+
+                        <button onclick="openBook()">
+                            Open Surprise 🎁
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="back-button" onclick="goBack()">
+            ← Kembali
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 5 -->
+<section id="page5" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            MEMORIES
+        </span>
+
+        <h1 class="memory-title">
+            Memories ✨
+        </h1>
+
+        <p>
+            Sebuah kenangan kecil
+            untuk kamu.
+        </p>
+
+        <div class="memory-slideshow">
+
+            <div id="memoryNumber" class="memory-number">
+                1 / 10
+            </div>
+
+            <img id="memoryImage" class="memory-slide show" src="foto1.jpg" alt="Memory">
+
+            <div id="memoryDark" class="memory-dark"></div>
+
+        </div>
+
+        <div id="nextMemoryWrap" style="display:none;">
+            <button class="next-memory" onclick="goToPage(6)">
+                Selanjutnya →
+            </button>
+        </div>
+
+        <br>
+
+        <button class="back-button" onclick="goBack()">
+            ← Kembali
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 6 -->
+<section id="page6" class="page">
+
+    <div class="content">
+
+        <span class="badge">
+            VIDEO MEMORIES
+        </span>
+
+        <h1 class="video-title">
+            Our Memories 🎬
+        </h1>
+
+        <p>
+            Geser ke kiri atau kanan
+            untuk melihat video.
+        </p>
+
+        <div id="videoCarousel" class="video-carousel">
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video3.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="video-item">
+                <video controls playsinline preload="metadata">
+                    <source src="video4.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+
+        <div class="video-hint">
+            ← SWIPE → &nbsp; • &nbsp;
+            Hanya satu video yang diputar
+        </div>
+
+        <button onclick="goToPage(7)">
+            Continue ❤️
+        </button>
+
+        <br>
+
+        <button class="back-button" onclick="goBack()">
+            ← Kembali
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PAGE 7 -->
+<section id="page7" class="page">
+
+    <div class="content">
+
+        <div class="letter">
+
+            <h1>
+                For My Princess ❤️
+            </h1>
+
+            <div class="letter-sub">
+                A LITTLE MESSAGE FROM THE HEART
+            </div>
+
+            <p>
+                Kalau kamu sudah sampai di halaman ini,
+                berarti kamu sudah melihat semua kejutan
+                kecil yang aku buat untukmu.
+            </p>
+
+            <p>
+                Mungkin semuanya terlihat sederhana.
+                Ada beberapa foto, video, musik, dan
+                halaman kecil yang aku susun satu per satu.
+                Tapi sebenarnya, ada satu alasan kenapa
+                semuanya dibuat.
+            </p>
+
+            <p>
+                Aku ingin membuat sebuah tempat kecil
+                untuk menyimpan hal-hal yang menurutku
+                berharga. Hal-hal yang mungkin terlihat
+                sederhana hari ini, tapi suatu saat nanti
+                bisa menjadi kenangan yang indah.
+            </p>
+
+            <p>
+                Terima kasih untuk setiap tawa, setiap
+                percakapan, setiap perhatian, dan setiap
+                momen kecil yang pernah kita lewati.
+                Kadang justru hal-hal sederhana seperti itu
+                yang paling lama tinggal di ingatan.
+            </p>
+
+            <p>
+                Aku nggak tahu bagaimana cerita kita akan
+                berjalan ke depannya. Mungkin akan ada
+                banyak hal baru, banyak perubahan, dan
+                mungkin juga ada hari-hari yang tidak
+                semuanya berjalan sempurna.
+            </p>
+
+            <p>
+                Tapi aku berharap, di antara semua itu,
+                kita tetap punya banyak alasan untuk
+                tersenyum dan mengingat kembali semua
+                hal baik yang pernah kita lewati.
+            </p>
+
+            <p>
+                Kalau suatu hari nanti kamu sedang merasa
+                capek atau hari kamu sedang tidak baik,
+                semoga halaman kecil ini bisa mengingatkan
+                kamu bahwa pernah ada seseorang yang
+                sengaja membuat semua ini hanya untuk
+                melihat kamu tersenyum.
+            </p>
+
+            <p class="highlight">
+                Kamu nggak harus menjadi sempurna
+                untuk menjadi berharga.
+                <br><br>
+                Kamu cukup menjadi dirimu sendiri. ❤️
+            </p>
+
+            <p>
+                Dan kalau perjalanan ini masih panjang,
+                semoga masih ada banyak halaman yang bisa
+                kita isi bersama.
+            </p>
+
+            <p>
+                Lebih banyak cerita.
+                <br>
+                Lebih banyak tawa.
+                <br>
+                Lebih banyak foto.
+                <br>
+                Lebih banyak kenangan.
+            </p>
+
+            <p class="highlight">
+                Sampai suatu hari nanti kita melihat
+                semuanya kembali dan berkata:
+                <br><br>
+                “Ternyata kita sudah sejauh ini.”
+            </p>
+
+            <p>
+                Terima kasih sudah menjadi bagian dari
+                cerita ini.
+            </p>
+
+            <p class="highlight">
+                Stay happy, stay beautiful,
+                and keep being you. ❤️
+            </p>
+
+            <p class="signature">
+                — A little surprise,
+                made especially for you. ✨
+            </p>
+
+        </div>
+
+        <br>
+
+        <button onclick="restartWebsite()">
+            ↻ Start Again
+        </button>
+
+        <br>
+
+        <button class="back-button" onclick="goBack()">
+            ← Kembali
+        </button>
+
+    </div>
+
+</section>
+
+<!-- 444 ERROR -->
+<div id="error444">
+
+    <div class="error-code">
+        444
+    </div>
+
+    <div class="error-text">
+        Not Found
+    </div>
+
+    <button onclick="close444()">
+        Kembali
+    </button>
+
+</div>
+
+<script>
+
+/* =====================================================
+   STAR BACKGROUND
+===================================================== */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let stars=[];
+
+function resizeCanvas(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize",resizeCanvas);
+
+for(let i=0;i<150;i++){
+    stars.push({
+        x:Math.random(),
+        y:Math.random(),
+        size:Math.random()*1.5+.3,
+        alpha:Math.random()
+    });
+}
+
+function drawStars(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    stars.forEach(star=>{
+
+        star.alpha+=.008;
+
+        const opacity=
+            .25+
+            Math.abs(Math.sin(star.alpha))*.7;
+
+        ctx.globalAlpha=opacity;
+        ctx.fillStyle="#fff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x*canvas.width,
+            star.y*canvas.height,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
+const loadingMusic=document.getElementById("loadingMusic");
+const memoryMusic=document.getElementById("memoryMusic");
+
+let memoryMusicStarted=false;
+
+loadingMusic.volume=.45;
+memoryMusic.volume=.5;
+
+function safePlay(audio){
+
+    audio.play().catch(()=>{});
+}
+
+/*
+   Coba autoplay ketika halaman dibuka.
+*/
+window.addEventListener("load",function(){
+
+    safePlay(loadingMusic);
+
+});
+
+/*
+   Kalau browser HP memblokir autoplay,
+   interaksi pertama akan menyalakan musik.
+*/
+function unlockAudio(){
+
+    if(currentPage<5){
+
+        if(
+            loadingMusic.paused &&
+            loadingMusic.currentTime===0
+        ){
+            safePlay(loadingMusic);
+        }
+
+    }else{
+
+        if(memoryMusic.paused){
+            safePlay(memoryMusic);
+        }
+
+    }
+
+}
+
+["click","touchstart","pointerdown"].forEach(eventName=>{
+
+    document.addEventListener(
+        eventName,
+        unlockAudio,
+        {
+            once:false,
+            passive:true
+        }
+    );
+
+});
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+let loadingStart=Date.now();
+const loadingDuration=5000;
+let loadingFinished=false;
+
+function updateLoading(){
+
+    const elapsed=Date.now()-loadingStart;
+
+    const percent=Math.min(
+        elapsed/loadingDuration*100,
+        100
+    );
+
+    document.getElementById("loadingProgress").style.width=
+        percent+"%";
+
+    document.getElementById("loadingPercent").textContent=
+        Math.floor(percent)+"%";
+
+    if(elapsed<loadingDuration){
+
+        requestAnimationFrame(updateLoading);
+
+    }else{
+
+        loadingFinished=true;
+
+        document.getElementById("loading").classList.add("hide");
+
+        /*
+           Lagu loading berhenti setelah loading.
+           Lagu 1 tidak diulang.
+        */
+        loadingMusic.pause();
+
+    }
+
+}
+
+updateLoading();
+
+/* =====================================================
+   PAGE SYSTEM
+===================================================== */
+
+let currentPage=1;
+
+function goToPage(number){
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const next=document.getElementById("page"+number);
+
+    if(!next)return;
+
+    next.classList.add("active");
+
+    currentPage=number;
+
+    if(number===5){
+
+        startMemoryMusic();
+        startLoveRain();
+
+    }
+
+    if(number===6 || number===7){
+
+        startMemoryMusic();
+        startLoveRain();
+
+    }
+
+    if(number===4){
+
+        startLoveRain();
+
+    }
+
+    if(number<4){
+
+        stopLoveRain();
+
+    }
+
+}
+
+/* =====================================================
+   BACK
+===================================================== */
+
+function goBack(){
+
+    if(currentPage>1){
+
+        goToPage(currentPage-1);
+
+    }
+
+}
+
+/* =====================================================
+   AUDIO MEMORY
+===================================================== */
+
+function startMemoryMusic(){
+
+    if(!memoryMusicStarted){
+
+        memoryMusicStarted=true;
+
+        memoryMusic.currentTime=0;
+
+    }
+
+    /*
+       Jangan reset currentTime.
+       Jadi musik selalu lanjut dari posisi terakhir.
+    */
+
+    safePlay(memoryMusic);
+
+}
+
+/* =====================================================
+   YES / NO
+===================================================== */
+
+function answerYes(){
+
+    goToPage(3);
+    resetGame();
+
+}
+
+function answerNo(){
+
+    /*
+       NO langsung menjadi 444 Not Found.
+    */
+
+    document.getElementById("error444").classList.add("show");
+
+}
+
+function close444(){
+
+    document.getElementById("error444").classList.remove("show");
+
+}
+
+/* =====================================================
+   GAME
+===================================================== */
+
+let gameScore=0;
+
+function resetGame(){
+
+    gameScore=0;
+
+    document.getElementById("gameScore").textContent="0";
+
+    document.getElementById("continueButton").disabled=true;
+
+    spawnGameHeart();
+
+}
+
+function spawnGameHeart(){
+
+    const area=document.getElementById("gameArea");
+
+    area.innerHTML="";
+
+    if(gameScore>=3){
+
+        area.innerHTML=`
+
+            <div style="
+                position:absolute;
+                inset:0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                flex-direction:column;
+                font-weight:bold;
+            ">
+
+                <div style="
+                    font-size:48px;
+                    animation:heartbeat .7s infinite alternate;
+                ">
+                    ❤️
+                </div>
+
+                <div style="
+                    margin-top:12px;
+                    font-size:22px;
+                ">
+                    100% Love
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    const heart=document.createElement("div");
+
+    heart.className="target-heart";
+    heart.textContent="❤️";
+
+    heart.style.left=(Math.random()*82+5)+"%";
+    heart.style.top=(Math.random()*65+8)+"%";
+
+    heart.addEventListener("click",function(){
+
+        gameScore++;
+
+        document.getElementById("gameScore").textContent=
+            gameScore;
+
+        if(gameScore>=3){
+
+            spawnGameHeart();
+
+            document.getElementById("continueButton").disabled=false;
+
+        }else{
+
+            spawnGameHeart();
+
+        }
+
+    });
+
+    area.appendChild(heart);
+
+}
+
+/* =====================================================
+   BOOK
+===================================================== */
+
+function openBook(){
+
+    const book=document.getElementById("book");
+
+    book.classList.remove("closing");
+    book.classList.add("open");
+
+    setTimeout(function(){
+
+        goToPage(5);
+
+    },1500);
+
+}
+
+/* =====================================================
+   MEMORY SLIDESHOW
+===================================================== */
+
+const photoFiles=[
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg",
+    "foto5.jpg",
+    "foto6.jpg",
+    "foto7.jpg",
+    "foto8.jpg",
+    "foto9.jpg",
+    "foto10.jpg"
+];
+
+let memoryIndex=0;
+let memoryTimer=null;
+
+const memoryImage=document.getElementById("memoryImage");
+const memoryDark=document.getElementById("memoryDark");
+const memoryNumber=document.getElementById("memoryNumber");
+const nextMemoryWrap=document.getElementById("nextMemoryWrap");
+
+function randomDirection(){
+
+    const directions=[
+        "right",
+        "up",
+        "down"
+    ];
+
+    return directions[
+        Math.floor(
+            Math.random()*directions.length
+        )
+    ];
+
+}
+
+function changeMemory(){
+
+    if(currentPage!==5)return;
+
+    memoryDark.classList.remove("active");
+
+    void memoryDark.offsetWidth;
+
+    memoryDark.classList.add("active");
+
+    const direction=randomDirection();
+
+    let transformStart="translate(0,0) scale(1.08)";
+
+    if(direction==="right"){
+        transformStart="translate(100%,0) scale(1.08)";
+    }
+
+    if(direction==="up"){
+        transformStart="translate(0,-100%) scale(1.08)";
+    }
+
+    if(direction==="down"){
+        transformStart="translate(0,100%) scale(1.08)";
+    }
+
+    memoryImage.classList.remove("show");
+
+    memoryImage.style.transition="none";
+    memoryImage.style.transform=transformStart;
+    memoryImage.style.opacity="0";
+
+    setTimeout(function(){
+
+        memoryIndex++;
+
+        if(memoryIndex>=photoFiles.length){
+            memoryIndex=0;
+        }
+
+        memoryImage.src=photoFiles[memoryIndex];
+
+        memoryNumber.textContent=
+            (memoryIndex+1)+" / 10";
+
+        /*
+           Tombol muncul mulai foto ke-3.
+        */
+        if(memoryIndex>=2){
+            nextMemoryWrap.style.display="block";
+        }
+
+        requestAnimationFrame(function(){
+
+            requestAnimationFrame(function(){
+
+                memoryImage.style.transition=
+                    "opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1)";
+
+                memoryImage.style.transform=
+                    "translate(0,0) scale(1)";
+
+                memoryImage.style.opacity="1";
+
+                memoryImage.classList.add("show");
+
+            });
+
+        });
+
+    },350);
+
+}
+
+function startMemorySlideshow(){
+
+    clearInterval(memoryTimer);
+
+    memoryIndex=0;
+
+    memoryImage.src=photoFiles[0];
+    memoryImage.style.opacity="1";
+    memoryImage.style.transform="translate(0,0) scale(1)";
+    memoryImage.classList.add("show");
+
+    memoryNumber.textContent="1 / 10";
+
+    nextMemoryWrap.style.display="none";
+
+    /*
+       Setiap 3 detik.
+    */
+
+    memoryTimer=setInterval(
+        changeMemory,
+        3000
+    );
+
+}
+
+startMemorySlideshow();
+
+/*
+   Ketika masuk Memories,
+   mulai slideshow lagi dari foto pertama.
+*/
+const originalGoToPage=goToPage;
+
+goToPage=function(number){
+
+    originalGoToPage(number);
+
+    if(number===5){
+
+        startMemorySlideshow();
+
+    }
+
+};
+
+/* =====================================================
+   LOVE RAIN
+===================================================== */
+
+let rainRunning=false;
+let rainTimer=null;
+
+function startLoveRain(){
+
+    if(rainRunning)return;
+
+    rainRunning=true;
+
+    runLoveWave();
+
+}
+
+function stopLoveRain(){
+
+    rainRunning=false;
+
+    if(rainTimer){
+        clearTimeout(rainTimer);
+        rainTimer=null;
+    }
+
+    document.getElementById("loveRain").innerHTML="";
+
+}
+
+function runLoveWave(){
+
+    if(!rainRunning)return;
+
+    const container=document.getElementById("loveRain");
+
+    container.innerHTML="";
+
+    const count=10;
+
+    for(let i=0;i<count;i++){
+
+        const love=document.createElement("div");
+
+        love.className="falling-love";
+
+        love.textContent=
+            Math.random()>.5 ? "♥" : "♡";
+
+        love.style.left=
+            (5+Math.random()*90)+"%";
+
+        love.style.fontSize=
+            (9+Math.random()*9)+"px";
+
+        love.style.animationDuration="4s";
+        love.style.animationDelay=(i*.08)+"s";
+
+        container.appendChild(love);
+
+    }
+
+    rainTimer=setTimeout(function(){
+
+        if(rainRunning){
+            runLoveWave();
+        }
+
+    },7000);
+
+}
+
+/* =====================================================
+   VIDEO + MUSIC
+===================================================== */
+
+const videos=document.querySelectorAll(
+    "#videoCarousel video"
+);
+
+/*
+   Menyimpan apakah video sedang aktif.
+*/
+let activeVideo=null;
+
+videos.forEach(function(video){
+
+    video.addEventListener("play",function(){
+
+        activeVideo=video;
+
+        /*
+           Hanya video yang sedang diputar.
+        */
+        videos.forEach(function(other){
+
+            if(other!==video){
+                other.pause();
+            }
+
+        });
+
+        /*
+           Lagu 2 pause.
+           currentTime TIDAK diubah.
+        */
+        memoryMusic.pause();
+
+    });
+
+    /*
+       Saat video pause manual:
+       musik langsung lanjut.
+    */
+    video.addEventListener("pause",function(){
+
+        if(activeVideo===video){
+
+            safePlay(memoryMusic);
+
+        }
+
+    });
+
+    /*
+       Saat video selesai:
+       musik lanjut dari posisi terakhir.
+    */
+    video.addEventListener("ended",function(){
+
+        if(activeVideo===video){
+
+            activeVideo=null;
+
+            safePlay(memoryMusic);
+
+        }
+
+    });
+
+});
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartWebsite(){
+
+    /*
+       Stop slideshow sementara.
+    */
+    clearInterval(memoryTimer);
+
+    /*
+       Stop semua video.
+    */
+    videos.forEach(function(video){
+
+        video.pause();
+        video.currentTime=0;
+
+    });
+
+    activeVideo=null;
+
+    /*
+       Stop audio.
+    */
+    loadingMusic.pause();
+    memoryMusic.pause();
+
+    loadingMusic.currentTime=0;
+    memoryMusic.currentTime=0;
+
+    memoryMusicStarted=false;
+
+    /*
+       Efek tutup buku.
+    */
+    const book=document.getElementById("book");
+
+    /*
+       Pastikan halaman terakhir tetap terlihat
+       selama buku melakukan animasi tutup.
+    */
+    book.classList.remove("open");
+    book.classList.add("closing");
+
+    setTimeout(function(){
+
+        book.classList.remove("closing");
+
+        /*
+           Kembali ke awal setelah buku benar-benar tertutup.
+        */
+        document.querySelectorAll(".page").forEach(page=>{
+            page.classList.remove("active");
+        });
+
+        document.getElementById("page1").classList.add("active");
+
+        currentPage=1;
+
+        stopLoveRain();
+
+        /*
+           Reset game.
+        */
+        gameScore=0;
+
+        document.getElementById("gameScore").textContent="0";
+
+        document.getElementById("continueButton").disabled=true;
+
+        document.getElementById("gameArea").innerHTML="";
+
+        /*
+           Reset loading.
+        */
+        document.getElementById("loadingProgress").style.width="0%";
+        document.getElementById("loadingPercent").textContent="0%";
+
+        document.getElementById("loading").classList.remove("hide");
+
+        loadingStart=Date.now();
+
+        safePlay(loadingMusic);
+
+        requestAnimationFrame(updateLoading);
+
+    },1500);
+
+}
+
+</script>
+
+</body>
+  </html>
